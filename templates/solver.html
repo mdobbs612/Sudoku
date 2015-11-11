@@ -1,0 +1,38 @@
+<!doctype html>
+<header>
+  <title>Sudoku Solver</title>
+  <link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
+</header>
+
+<body>
+  <div class="title_box">
+    <h1>Sudoku Solver!</h1>
+  </div>
+    
+  {% for message in get_flashed_messages() %}
+    <div class=flash>{{ message }}</div>
+  {% endfor %}
+  
+  <h2>Enter the board to be solved!</h2>
+
+  {% if result %}
+    <p class=error><strong>Result:</strong> {{ result }}
+  {% endif %}
+      
+  <form action="{{ url_for('solve_puzzle') }}" method=post>
+    <dl class=board_input>
+      {% for n in range(81) %}
+        <dd><input class="input_box" type="text" pattern="[1-9]{1}" name="val1"></dd>
+      {% endfor %}
+      <div class="lines">
+        <div class="line"></div>
+        <div class="line"></div>
+        <div class="line"></div>
+        <div class="line"></div>
+      </div>
+      <dd><input class="go_button" type=submit value=Go></dd>
+    </dl>
+  </form>
+  
+</div>
+</body>
