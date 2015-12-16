@@ -5,29 +5,8 @@ class Board(object):
 		self.col_peers = []
 		self.row_peers = []
 		self.box_peers = []
+		self.empties = []
 
-	def __init__(self, init_as_string):
-		self.board = [0]*81
-		self.col_peers = []
-		self.row_peers = []
-		self.box_peers = []
-		
-		#separating each relevant character of string
-		list_of_vals = list(init_as_string)
-		
-		#removing the separators from the list
-		separators = ['\n', '\t', ' ']
-		list_of_vals = [x for x in list_of_vals 
-								if x not in separators]
-		
-		#assigning the values to correct index on board
-		#blank spaces treated as 0
-		for i in range (0, 81):
-			val = list_of_vals[i]
-			num = 0
-			if val != '.':
-				num = int(val)
-			self.board[i] = num
 	
 	#prints a copy of the board readable to user
 	def print_board(self):
@@ -60,6 +39,7 @@ class Board(object):
 	
 	def remove_val(self, row, col):
 		self.board[9 * row + col] = 0
+		
 
 	#creates the col, row, and box peers lists
 	def parse_cols(self):
@@ -69,18 +49,17 @@ class Board(object):
 			values_in_col = []
 			
 			for j in range(0, 9): #loop down rows
-				x = self.board[j*9 + i]
-				if x != 0:
+				box_index = j*9 + i
+				x = self.board[box_index]
+				if x:
 					values_in_col.append(x) #create list of peers in col
-			
 			self.col_peers.append(values_in_col) #append to list of all cols
-	
+		
 	def parse_rows(self):
 		#for a row i, the the ith list in the list will
 		#contain which numbers are set in the row
 		for j in range(0, 9): #loop down rows
 			values_in_row = []
-			
 			for i in range(0, 9): #loop across cols
 				x = self.board[j*9 + i]
 				if x != 0:
@@ -124,7 +103,7 @@ def string_to_list(string_input):
 	board_list = [0]*81
 
 	#separating each relevant character of string
-	list_of_vals = list(init_as_string)
+	list_of_vals = list(string_input)
 		
 	#removing the separators from the list
 	separators = ['\n', '\t', ' ']

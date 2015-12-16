@@ -113,12 +113,30 @@ def solve_step(board):
 	
 def solve_board(board):
 	board.parse_board()
+	board.print_board()
 	is_done = 0
 	while is_done == 0:
 		is_done = solve_step(board)
+	board.print_board()
+	print board.empties
 	return board.board
 			
-		
-		
+def main():
+	test_board = """
+	. 2 9 1 . . . . .
+	. . 1 . 8 . . . . 
+	. . 4 6 . 2 . . . 
+	7 6 . . 9 1 . 8 .
+	4 . . . . . . . 9
+	. 9 . 2 3 . . 1 4
+	. . . 5 . 8 3 . .
+	. . . . 2 . 9 . . 
+	. . . . . 6 5 4 ."""
+	board_list = string_to_list(test_board)
+	testing = Board(board_list)
+	solve_board(testing)
+
+	
+main()
 
 	
